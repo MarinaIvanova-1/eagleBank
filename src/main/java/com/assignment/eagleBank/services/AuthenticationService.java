@@ -1,12 +1,10 @@
 package com.assignment.eagleBank.services;
 
-import com.assignment.eagleBank.entity.User;
-import com.assignment.eagleBank.repositories.UserRepository;
 import com.assignment.eagleBank.dtos.LoginUserDto;
 import com.assignment.eagleBank.dtos.RegisterUserDto;
-import jakarta.validation.Validator;
+import com.assignment.eagleBank.entity.User;
+import com.assignment.eagleBank.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -4,13 +4,13 @@ import com.assignment.eagleBank.dtos.NewAccountDto;
 import com.assignment.eagleBank.entity.Account;
 import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.repositories.AccountRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -34,10 +34,25 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    //TODO this needs doing
-    public List<Account> getAllUserAccounts(String userId) {
-        List<Account> accounts = new ArrayList<>();
+    public List<Account> getAllUserAccounts(User user) {
+        List<Account> accounts = accountRepository.findAccountsByAccountUser_Id(user.getId());
         return accounts;
+    }
 
+    public Optional<Account> getUserAccountById(User user, Integer accountId) {
+
+        Optional<Account> account = accountRepository.findAccountByAccountUser_IdAndAccountNumber(user.getId(), accountId);
+
+        if (account.isEmpty()) {
+            if (accountRepository.existsAccountByAccountNumber(accountId)) {
+                //TODO this should be 403
+                throw new AccessDeniedException("The user is not allowed to access the bank account details");
+            } else {
+                //TODO this should be 404
+                throw new IllegalArgumentException("Bank account was not found");
+            }
+        }
+
+        return account;
     }
 }

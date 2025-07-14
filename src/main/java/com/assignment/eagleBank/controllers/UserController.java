@@ -1,10 +1,9 @@
 package com.assignment.eagleBank.controllers;
 
-import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.dtos.RegisterUserDto;
+import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.exceptions.BadRequestException;
 import com.assignment.eagleBank.services.AuthenticationService;
-import com.assignment.eagleBank.services.JwtService;
 import com.assignment.eagleBank.services.utils.InputValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +50,7 @@ public class UserController {
 
         //TODO there's a requirement to return a user not found error if the user exists, however it is considered a
         // bad practice as it discloses information about a user other than the one which is logged in.
+        //userRepository.existsByUserId
         if (!currentUser.getUsername().equals(userId)) {
             throw new AccessDeniedException("Access denied");
         }
