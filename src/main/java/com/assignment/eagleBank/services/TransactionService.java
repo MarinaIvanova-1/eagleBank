@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static com.assignment.eagleBank.entity.TransactionTypeEnum.DEPOSIT;
 import static com.assignment.eagleBank.entity.TransactionTypeEnum.WITHDRAWAL;
 
@@ -64,6 +68,21 @@ public class TransactionService {
 
         accountRepository.save(account);
         return transactionRepository.save(transaction);
+    }
+
+    public List<Transaction> getAllTransactionsFromAccount(User user, Integer accountId) {
+        Optional<Account> account = accountRepository.findAccountByAccountUser_IdAndAccountNumber(user.getId(), accountId);
+        List<Transaction> transactions = new ArrayList<>();
+        if (account.isPresent()) {
+            transactions = transactionRepository.findTransactionsByAccountAccountNumber(accountId);
+        } else if (accountRepository.existsAccountByAccountNumber(accountId)) {
+            //TODO Check exceptions
+            throw new AccessDeniedException("The user is not allowed to access the bank account details");
+        } else {
+            //TODO Check exceptions
+            throw new IllegalArgumentException("Bank account was not found");
+        }
+        return transactions;
     }
 
 }
