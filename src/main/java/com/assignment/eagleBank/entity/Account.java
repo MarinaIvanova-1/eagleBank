@@ -1,0 +1,100 @@
+package com.assignment.eagleBank.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
+
+@Entity
+@Table(name = "accounts")
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Builder
+@Getter
+@Setter
+public class Account {
+    @Id
+//    @Column(name = "accountNumber")
+    @Column
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_seq")
+    private Integer accountNumber;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User accountUser;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+    private String accountType;
+
+    private Double balance;
+
+//    @Enumerated(EnumType.STRING)
+    private String currency;
+
+    //TODO does it need to be an enum?
+    private String sortCode;
+
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    public Account setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Account setAccountType(String accountType) {
+        this.accountType = accountType;
+        return this;
+    }
+
+    public Account setBalance(double balance) {
+        this.balance = balance;
+        return this;
+    }
+
+    public Account setCurrency(String currency) {
+        this.currency = currency;
+        return this;
+    }
+
+    public Account setSortCode(String sortCode) {
+        this.sortCode = sortCode;
+        return this;
+    }
+
+    public Account setUser(User user) {
+        this.accountUser = user;
+        return this;
+    }
+
+    public Account setAccountNumber(Integer accountNumber) {
+        this.accountNumber = accountNumber;
+        return this;
+    }
+}
