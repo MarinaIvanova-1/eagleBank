@@ -66,5 +66,4 @@ public class UserController {
         }
         return ResponseEntity.ok(currentUser);
     }
-
 }
