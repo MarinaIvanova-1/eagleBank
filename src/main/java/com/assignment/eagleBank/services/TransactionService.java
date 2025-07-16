@@ -24,12 +24,14 @@ import static com.assignment.eagleBank.entity.TransactionTypeEnum.WITHDRAWAL;
 public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
-
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private AccountService accountService;
 
-    public Transaction createTransaction(NewTransactionDto newTransactionDto, User user, Integer accountId) {
-        if (newTransactionDto.getAmount() > 1000.00) {
+    //TODO refactor to rename accountID to accountNumber for consistency
+    public Transaction createTransaction(NewTransactionDto newTransactionDto, User user, String accountId) {
+        if (newTransactionDto.getAmount() > 10000.00) {
             //TODO new exception type?
             throw new IllegalArgumentException("Amount can't be greater than 1000.00");
         }
@@ -37,11 +39,11 @@ public class TransactionService {
 
         Transaction transaction = new Transaction();
 
-        //TODO refactor nested if clause
+        //TODO refactor tripple nested if clause
         if (account != null) {
             transaction.setAmount(newTransactionDto.getAmount())
                     .setTransactionType(newTransactionDto.getType())
-                    .setCurrency(newTransactionDto.getCurrency())
+                    .setCurrency(newTransactionDto.getCurrency  ())
                     //TODO does this need to be unique?
                     .setTransactionId(IdGenerator.generateTransactionId())
                     .setAccount(account);
@@ -49,7 +51,7 @@ public class TransactionService {
             if (newTransactionDto.getType().equals(WITHDRAWAL)) {
                 if (account.getBalance() < transaction.getAmount()) {
                     //TODO Check which exception is required here
-                    throw new IllegalArgumentException("Insufficient funds");
+                    throw new UnsupportedOperationException ("Insufficient funds to process transaction");
                 } else {
                     account.setBalance(account.getBalance() - transaction.getAmount());
                 }
@@ -70,19 +72,25 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    public List<Transaction> getAllTransactionsFromAccount(User user, Integer accountId) {
+    public List<Transaction> getAllTransactionsFromAccount(User user, String accountId) {
         Optional<Account> account = accountRepository.findAccountByAccountUser_IdAndAccountNumber(user.getId(), accountId);
         List<Transaction> transactions = new ArrayList<>();
         if (account.isPresent()) {
             transactions = transactionRepository.findTransactionsByAccountAccountNumber(accountId);
         } else if (accountRepository.existsAccountByAccountNumber(accountId)) {
-            //TODO Check exceptions
-            throw new AccessDeniedException("The user is not allowed to access the bank account details");
+            throw new AccessDeniedException("The user is not allowed to access the transactions");
         } else {
-            //TODO Check exceptions
             throw new IllegalArgumentException("Bank account was not found");
         }
         return transactions;
+    }
+
+
+    //TODO still needs implementing
+    public Optional<Transaction> getTransactionById(User user, String accountId, String transactionId) {
+        accountService.getUserAccountById(user, accountId);
+//        Optional<Transaction> transaction = transactionRepository.findById(transactionId);
+        return null;
     }
 
 }

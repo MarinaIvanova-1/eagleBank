@@ -27,21 +27,15 @@ public class User implements UserDetails {
 
     @Id
 //    TODO should it be @GeneratedValue(strategy = GenerationType.IDENTITY)?
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Integer id;
+    private String id;
 
     @Column(nullable = false)
     private String name;
 
-//    TODO Validation is not working
-//    @Embedded
-//    @Valid
-//    @Column(nullable = false)
-//    @NotNull
     private Address address;
 
-//    TODO Validation is not working
+    //    TODO Validation is not working
     @Column(nullable = false)
 //    @RegExp("[0-9]+")
 //    @Pattern(regexp = "[0-9]+")
@@ -102,11 +96,11 @@ public class User implements UserDetails {
         return true;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public User setId(Integer id) {
+    public User setId(String id) {
         this.id = id;
         return this;
     }
@@ -185,4 +179,3 @@ public class User implements UserDetails {
                 '}';
     }
 }
-

@@ -5,9 +5,12 @@ import com.assignment.eagleBank.entity.Transaction;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
-    List<Transaction> findTransactionsByAccountAccountNumber(Integer accountId);
+    List<Transaction> findTransactionsByAccountAccountNumber(String accountId);
+    //    Optional<Transaction> findTransactionByTransactionUser_IdAndAccountNumberAndTransactionId(String userId, String accountId, String transactionId);
+//    Optional<Transaction> findTransactionByTransactionId(String userId, String accountId, String transactionId);
 //    Optional<Account> findAccountByAccountUser_IdAndAccountNumber(Integer userId, Integer accountId);
 //    Optional<Account> findAccountsByAccountNumber(Integer accountId);
 //    boolean existsAccountByAccountNumber(Integer accountId);
@@ -16,3 +19,4 @@ public interface TransactionRepository extends CrudRepository<Transaction, Long>
 //    List<Account> findAccountsByAccountUser2(User user);
 //    List<Account> findAll();
 }
+

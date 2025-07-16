@@ -1,5 +1,6 @@
 package com.assignment.eagleBank.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,12 +24,10 @@ import java.util.Date;
 @Setter
 public class Account {
     @Id
-//    @Column(name = "accountNumber")
     @Column
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_seq")
-    private Integer accountNumber;
+    private String accountNumber;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User accountUser;
 
@@ -41,7 +40,7 @@ public class Account {
 
     private Double balance;
 
-//    @Enumerated(EnumType.STRING)
+    //    @Enumerated(EnumType.STRING)
     private String currency;
 
     //TODO does it need to be an enum?
@@ -85,7 +84,7 @@ public class Account {
         return this;
     }
 
-    public Account setAccountNumber(Integer accountNumber) {
+    public Account setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }

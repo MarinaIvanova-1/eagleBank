@@ -4,7 +4,9 @@ import com.assignment.eagleBank.dtos.NewAccountDto;
 import com.assignment.eagleBank.entity.Account;
 import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.services.AccountService;
+import com.assignment.eagleBank.services.utils.InputValidation;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.security.sasl.AuthenticationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,36 +28,47 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody NewAccountDto newAccountDto) {
+    public ResponseEntity<Account> createAccount(@RequestBody NewAccountDto newAccountDto) throws AuthenticationException, BadRequestException {
+        if (InputValidation.isEmptyInput(newAccountDto.getName())||
+                InputValidation.isEmptyInput(newAccountDto.getType())) {
+            throw new BadRequestException("Invalid details supplied");
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        if (authentication.getPrincipal().equals("anonymousUser")) {
+            throw new AuthenticationException("Access token is missing or invalid");
+        }
         User currentUser = (User) authentication.getPrincipal();
-
-        //TODO validation of input here
-
         Account account = accountService.createAccount(newAccountDto, currentUser);
-
         return ResponseEntity.ok(account);
 
     }
 
     @GetMapping
-    public ResponseEntity<List<Account>> getAllUserAccounts() {
+    public ResponseEntity<List<Account>> getAllUserAccounts() throws AuthenticationException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal().equals("anonymousUser")) {
+            throw new AuthenticationException("Access token is missing or invalid");
+        }
         User currentUser = (User) authentication.getPrincipal();
 
         List<Account> accounts = accountService.getAllUserAccounts(currentUser);
         return ResponseEntity.ok(accounts);
     }
 
-    @GetMapping("/{accountId}")
-    public ResponseEntity<Optional<Account>> getAccountById(@PathVariable("accountId") Integer accountId) {
+    @GetMapping("/{accountNumber}")
+    public ResponseEntity<Optional<Account>> getAccountById(@PathVariable("accountNumber") String accountNumber) throws AuthenticationException, BadRequestException {
+        if (InputValidation.isEmptyInput(accountNumber)) {
+            throw new BadRequestException("The request didn't supply all the necessary data");
+        }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal().equals("anonymousUser")) {
+            throw new AuthenticationException("The user was not authenticated");
+        }
         User currentUser = (User) authentication.getPrincipal();
 
-        Optional<Account> account = accountService.getUserAccountById(currentUser, accountId);
+        Optional<Account> account = accountService.getUserAccountById(currentUser, accountNumber);
 
         return ResponseEntity.ok(account);
     }
-
 }
