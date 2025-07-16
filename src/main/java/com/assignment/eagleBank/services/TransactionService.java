@@ -85,12 +85,12 @@ public class TransactionService {
         return transactions;
     }
 
-
-    //TODO still needs implementing
     public Optional<Transaction> getTransactionById(User user, String accountId, String transactionId) {
         accountService.getUserAccountById(user, accountId);
-//        Optional<Transaction> transaction = transactionRepository.findById(transactionId);
-        return null;
+        Optional<Transaction> transaction =
+                transactionRepository
+                        .findTransactionByTransactionIdEqualsAndAccount_AccountNumber(transactionId, accountId);
+        return transaction;
     }
 
 }

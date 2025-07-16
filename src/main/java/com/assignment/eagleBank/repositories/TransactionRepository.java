@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
     List<Transaction> findTransactionsByAccountAccountNumber(String accountId);
+    Optional<Transaction> findTransactionByTransactionIdEqualsAndAccount_AccountNumber(String transactionId, String accountId);
     //    Optional<Transaction> findTransactionByTransactionUser_IdAndAccountNumberAndTransactionId(String userId, String accountId, String transactionId);
 //    Optional<Transaction> findTransactionByTransactionId(String userId, String accountId, String transactionId);
 //    Optional<Account> findAccountByAccountUser_IdAndAccountNumber(Integer userId, Integer accountId);

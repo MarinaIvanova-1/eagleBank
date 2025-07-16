@@ -55,7 +55,7 @@ public class TransactionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Transaction>> getAllTransactionsFromAccount(@PathVariable("accountId") String accountId) throws AuthenticationException {
+    public ResponseEntity<List<Transaction>> getAllTransactionsFromAccount(@PathVariable("accountNumber") String accountId) throws AuthenticationException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal().equals("anonymousUser")) {
             throw new AuthenticationException("Access token is missing or invalid");
@@ -66,7 +66,7 @@ public class TransactionController {
     }
 
     @GetMapping("/{transactionId}")
-    public ResponseEntity<Optional<Transaction>> getTransactionById(@PathVariable("accountId") String accountId, @PathVariable("transactionId") String transactionId) throws AuthenticationException {
+    public ResponseEntity<Optional<Transaction>> getTransactionById(@PathVariable("accountNumber") String accountId, @PathVariable("transactionId") String transactionId) throws AuthenticationException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal().equals("anonymousUser")) {
             throw new AuthenticationException("Access token is missing or invalid");
