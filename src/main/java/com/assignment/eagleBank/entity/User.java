@@ -35,7 +35,7 @@ public class User implements UserDetails {
 
     private Address address;
 
-//    TODO Validation is not working
+    //    TODO Validation is not working
     @Column(nullable = false)
 //    @RegExp("[0-9]+")
 //    @Pattern(regexp = "[0-9]+")
@@ -179,4 +179,3 @@ public class User implements UserDetails {
                 '}';
     }
 }
-

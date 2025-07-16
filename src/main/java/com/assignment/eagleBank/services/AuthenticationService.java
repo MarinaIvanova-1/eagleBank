@@ -23,22 +23,22 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         var user = new User()
-            .setName(input.getName())
-            .setEmail(input.getEmail())
-            .setPhoneNumber(input.getPhoneNumber())
-            .setAddress(input.getAddress())
-            .setPassword(passwordEncoder.encode(input.getPassword()))
-            .setId(IdGenerator.generateUserId());
+                .setName(input.getName())
+                .setEmail(input.getEmail())
+                .setPhoneNumber(input.getPhoneNumber())
+                .setAddress(input.getAddress())
+                .setPassword(passwordEncoder.encode(input.getPassword()))
+                .setId(IdGenerator.generateUserId());
 
         return userRepository.save(user);
     }
 
     public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                input.getEmail(),
-                input.getPassword()
-            )
+                new UsernamePasswordAuthenticationToken(
+                        input.getEmail(),
+                        input.getPassword()
+                )
         );
 
         return userRepository.findByEmail(input.getEmail()).orElseThrow();

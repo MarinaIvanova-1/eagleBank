@@ -43,10 +43,8 @@ public class AccountService {
 
         if (account.isEmpty()) {
             if (accountRepository.existsAccountByAccountNumber(accountId)) {
-                //TODO this should be 403
                 throw new AccessDeniedException("The user is not allowed to access the bank account details");
             } else {
-                //TODO this should be 404
                 throw new IllegalArgumentException("Bank account was not found");
             }
         }

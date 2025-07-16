@@ -40,7 +40,7 @@ public class Account {
 
     private Double balance;
 
-//    @Enumerated(EnumType.STRING)
+    //    @Enumerated(EnumType.STRING)
     private String currency;
 
     //TODO does it need to be an enum?
