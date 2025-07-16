@@ -69,6 +69,24 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.38</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-spring-boot</artifactId>
+			<version>2.25.1</version>
+			<scope>runtime</scope>
+		</dependency>
+<!--		TODO openapi generation has failed, this is likely caused by non-matching Spring Boot dependencies.-->
+		<!--		<dependency>-->
+<!--			<groupId>org.springdoc</groupId>-->
+<!--			<artifactId>springdoc-openapi-ui</artifactId>-->
+<!--			<version>1.2.3</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

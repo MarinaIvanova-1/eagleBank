@@ -6,6 +6,8 @@ import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.services.AccountService;
 import com.assignment.eagleBank.services.utils.InputValidation;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,7 @@ import java.util.Optional;
 @RequestMapping("/v1/accounts")
 @RestController
 @AllArgsConstructor
+@Slf4j
 public class AccountController {
     private final AccountService accountService;
 
@@ -63,6 +66,7 @@ public class AccountController {
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal().equals("anonymousUser")) {
+            log.error("Invalid request, incorrect authentication details were supplied for accountNumber " + accountNumber + " and current user");
             throw new AuthenticationException("The user was not authenticated");
         }
         User currentUser = (User) authentication.getPrincipal();

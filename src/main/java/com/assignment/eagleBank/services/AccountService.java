@@ -7,6 +7,7 @@ import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.repositories.AccountRepository;
 import com.assignment.eagleBank.services.utils.IdGenerator;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
@@ -44,6 +46,7 @@ public class AccountService {
 
         if (account.isEmpty()) {
             if (accountRepository.existsAccountByAccountNumber(accountId)) {
+                log.error("Invalid request: user " + user.getEmail() + " trying to access account " + accountId);
                 throw new AccessDeniedException("The user is not allowed to access the bank account details");
             } else {
                 throw new IllegalArgumentException("Bank account was not found");

@@ -66,14 +66,17 @@ public class TransactionController {
     }
 
     @GetMapping("/{transactionId}")
-    public ResponseEntity<Optional<Transaction>> getTransactionById(@PathVariable("accountNumber") String accountId, @PathVariable("transactionId") String transactionId) throws AuthenticationException {
+    public ResponseEntity<Optional<Transaction>> getTransactionById(@PathVariable("accountNumber") String accountNumber, @PathVariable("transactionId") String transactionId) throws AuthenticationException, BadRequestException {
+        if (InputValidation.isEmptyInput(accountNumber) || InputValidation.isEmptyInput(transactionId)) {
+            throw new BadRequestException("The request didn't supply all the necessary data");
+        }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal().equals("anonymousUser")) {
             throw new AuthenticationException("Access token is missing or invalid");
         }
         User currentUser = (User) authentication.getPrincipal();
 
-        Optional<Transaction> transaction = transactionService.getTransactionById(currentUser, accountId, transactionId);
+        Optional<Transaction> transaction = transactionService.getTransactionById(currentUser, accountNumber, transactionId);
 
         return ResponseEntity.ok(transaction);
 

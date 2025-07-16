@@ -87,10 +87,18 @@ public class TransactionService {
 
     public Optional<Transaction> getTransactionById(User user, String accountId, String transactionId) {
         accountService.getUserAccountById(user, accountId);
+
         Optional<Transaction> transaction =
                 transactionRepository
                         .findTransactionByTransactionIdEqualsAndAccount_AccountNumber(transactionId, accountId);
+        if(transaction.isEmpty()) {
+            if (transactionRepository.existsTransactionByTransactionId(transactionId)) {
+                throw new AccessDeniedException("The user is not allowed to access the transaction");
+            } else {
+                throw new IllegalArgumentException("Bank account was not found");
+
+            }
+        }
         return transaction;
     }
-
 }
