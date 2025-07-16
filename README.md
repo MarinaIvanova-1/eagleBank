@@ -1,9 +1,9 @@
 # @EagleBank assignement
 
 **To build the application** 
- - install Docker for connecting to the local database
- - run 'docker compose up'
- - build the project using 'mvn clean install'
+ - Install Docker for connecting to the local database
+ - Run 'docker compose up'
+ - Build the project using 'mvn clean install'
 
 
 **Tech stack used**
@@ -16,7 +16,7 @@
 
 **Postman collection of requests is available in /resources/postman/**
 
-Future plans
+**Future plans**
  - Increase test coverage using both Unit and Integration test
  - Implement the rest of the endpoints according to the openapi.yml spec
  - Implement test containers for integration tests
