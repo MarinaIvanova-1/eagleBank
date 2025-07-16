@@ -31,4 +31,34 @@ public class Address {
 
     @NotBlank(message = "Postcode is required")
     private String postcode;
+
+    public Address setLine1(String line1) {
+        this.line1 = line1;
+        return this;
+    }
+
+    public Address setLine2(String line2) {
+        this.line2 = line2;
+        return this;
+    }
+
+    public Address setLine3(String line3) {
+        this.line3 = line3;
+        return this;
+    }
+
+    public Address setTown(String town) {
+        this.town = town;
+        return this;
+    }
+
+    public Address setCounty(String county) {
+        this.county = county;
+        return this;
+    }
+
+    public Address setPostcode(String postcode) {
+        this.postcode = postcode;
+        return this;
+    }
 }

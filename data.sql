@@ -1,0 +1,4 @@
+insert into taskdb.users (id, county, line1, line2, line3, postcode, town, created_at, email, name, password, phone_number, updated_at) values ('usr-5723bb96', 'test county', 'Line 1 of address', null, null, 'test postcode', 'test town', '2025-07-15 17:46:14.053000', 'testemail@me.com', 'test name', '$2a$10$k4/XVdVWVJjXRrTOnWAkseYK1yCdPbsBQ7bTGJLiiM4u8.1MQ66I6', '+123456789111', '2025-07-15 17:46:14.054000');
+
+insert into taskdb.accounts (account_number, account_type, balance, created_at, currency, name, sort_code, updated_at, user_id) values ('01648645', 'PERSONAL', 40, '2025-07-15 17:51:11.685000', 'GBP', 'peronsal-account', '10-10-10', '2025-07-15 17:51:51.899000', 'usr-5723bb96');
+insert into taskdb.accounts (account_number, account_type, balance, created_at, currency, name, sort_code, updated_at, user_id) values ('01732370', 'PERSONAL', 0, '2025-07-15 17:51:06.575000', 'GBP', 'peronsal-account', '10-10-10', '2025-07-15 17:51:06.575000', 'usr-5723bb96');

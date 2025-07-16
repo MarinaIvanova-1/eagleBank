@@ -4,6 +4,7 @@ import com.assignment.eagleBank.dtos.LoginUserDto;
 import com.assignment.eagleBank.dtos.RegisterUserDto;
 import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.repositories.UserRepository;
+import com.assignment.eagleBank.services.utils.IdGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +27,8 @@ public class AuthenticationService {
             .setEmail(input.getEmail())
             .setPhoneNumber(input.getPhoneNumber())
             .setAddress(input.getAddress())
-            .setPassword(passwordEncoder.encode(input.getPassword()));
+            .setPassword(passwordEncoder.encode(input.getPassword()))
+            .setId(IdGenerator.generateUserId());
 
         return userRepository.save(user);
     }

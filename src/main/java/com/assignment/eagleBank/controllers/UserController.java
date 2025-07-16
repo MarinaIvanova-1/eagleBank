@@ -2,10 +2,10 @@ package com.assignment.eagleBank.controllers;
 
 import com.assignment.eagleBank.dtos.RegisterUserDto;
 import com.assignment.eagleBank.entity.User;
-import com.assignment.eagleBank.exceptions.BadRequestException;
 import com.assignment.eagleBank.services.AuthenticationService;
 import com.assignment.eagleBank.services.utils.InputValidation;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.security.sasl.AuthenticationException;
+
 
 @RequestMapping("/v1/users")
 @RestController
@@ -26,15 +28,20 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Object> register(@RequestBody RegisterUserDto registerUserDto) throws BadRequestException {
-        if (!InputValidation.isValidEMail(registerUserDto.getEmail())) {
-            return ResponseEntity.badRequest().body("Invalid email supplied");
+        //TODO handle scenario when a user tried to register with the same email
+        if (InputValidation.isEmptyInput(registerUserDto.getEmail()) || !InputValidation.isValidEMail(registerUserDto.getEmail())) {
+            throw new BadRequestException("Invalid details supplied");
         }
 
-        if (InputValidation.isEmptyInput(registerUserDto.getAddress().getLine1()) ||
+        if (InputValidation.isEmptyInput(registerUserDto.getName())||
+                InputValidation.isEmptyInput(registerUserDto.getPhoneNumber())||
+                !InputValidation.isValidPhoneNumber(registerUserDto.getPhoneNumber())||
+                InputValidation.isEmptyInput(registerUserDto.getAddress().getLine1()) ||
                 InputValidation.isEmptyInput(registerUserDto.getAddress().getTown()) ||
                 InputValidation.isEmptyInput(registerUserDto.getAddress().getCounty()) ||
-                InputValidation.isEmptyInput(registerUserDto.getAddress().getPostcode())) {
-            return ResponseEntity.badRequest().body("Invalid details supplied");
+                InputValidation.isEmptyInput(registerUserDto.getAddress().getPostcode()))
+        {
+            throw new BadRequestException("Invalid details supplied");
         }
 
         User registeredUser = authenticationService.signup(registerUserDto);
@@ -43,8 +50,11 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> fetchUserDetails(@PathVariable String userId) {
+    public ResponseEntity<User> fetchUserDetails(@PathVariable String userId) throws AuthenticationException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal().equals("anonymousUser")) {
+            throw new AuthenticationException("Access token is missing or invalid");
+        }
 
         User currentUser = (User) authentication.getPrincipal();
 
@@ -52,9 +62,8 @@ public class UserController {
         // bad practice as it discloses information about a user other than the one which is logged in.
         //userRepository.existsByUserId
         if (!currentUser.getUsername().equals(userId)) {
-            throw new AccessDeniedException("Access denied");
+            throw new AccessDeniedException("The user is not allowed to access the transaction");
         }
-
         return ResponseEntity.ok(currentUser);
     }
 

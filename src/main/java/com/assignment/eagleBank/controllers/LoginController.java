@@ -5,6 +5,8 @@ import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.responses.LoginResponse;
 import com.assignment.eagleBank.services.AuthenticationService;
 import com.assignment.eagleBank.services.JwtService;
+import com.assignment.eagleBank.services.utils.InputValidation;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,9 +24,14 @@ public class LoginController {
         this.authenticationService = authenticationService;
     }
 
-    //TODO validate the input here
     @PostMapping
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) throws BadRequestException {
+        if (InputValidation.isEmptyInput(loginUserDto.getEmail())||
+                InputValidation.isEmptyInput(loginUserDto.getPassword()))
+        {
+            throw new BadRequestException("Invalid details supplied");
+        }
+
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
