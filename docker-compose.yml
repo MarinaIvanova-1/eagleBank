@@ -1,0 +1,46 @@
+#database:
+#  image: mysql:5.7
+#  ports:
+#    - "3307:3306"
+#  command: --init-file /data/application/init.sql
+#  volumes:
+#    - ./init.sql:/data/application/init.sql
+#  environment:
+#    MYSQL_ROOT_USER: root
+#    MYSQL_ROOT_PASSWORD: secret
+#    MYSQL_DATABASE: homestead
+#    MYSQL_USER: root
+#    MYSQL_PASSWORD: secret
+
+
+version: "3.7"
+services:
+#  api_service:
+#    build: .
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - eagle-bank-net
+#    environment:
+#      - spring.datasource.url=jdbc:mysql://mysqldb:3306/basics?allowPublicKeyRetrieval=true
+#    depends_on:
+#      - mysqldb
+#
+#    volumes:
+#      - .m2:/root/.m2
+
+  mysqldb:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3307:3306
+    networks:
+      - eagle-bank-net
+    environment:
+      MYSQL_DATABASE: taskdb
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+networks:
+  eagle-bank-net:
