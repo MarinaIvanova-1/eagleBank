@@ -1,0 +1,371 @@
+{
+	"info": {
+		"_postman_id": "a2ebead7-58e9-4f8d-ab26-046716dfbf8a",
+		"name": "EagleBank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25952182"
+	},
+	"item": [
+		{
+			"name": "Create transaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLjIyMkBtZS5jb20iLCJpYXQiOjE3NTI1MjgzNTUsImV4cCI6MTc1MjYxNDc1NX0.mnsiBNNy8zQ9gPqmvwBp8b8DFSZtCZvovWYJrP8chwk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": \"10.00\",\n    \"type\": \"DEPOSIT\",\n    \"currency\": \"GBP\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/accounts/1343433/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"accounts",
+						"1343433",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch transactions from account",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLjIyMkBtZS5jb20iLCJpYXQiOjE3NTI1MjgzNTUsImV4cCI6MTc1MjYxNDc1NX0.mnsiBNNy8zQ9gPqmvwBp8b8DFSZtCZvovWYJrP8chwk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": \"10.00\",\n    \"type\": \"DEPOSIT\",\n    \"currency\": \"GBP\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/accounts/1343453/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"accounts",
+						"1343453",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registration",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"john.222@me.com\",\n    \"name\": \"John\",\n    \"password\": \"password\",\n    \"phoneNumber\": \"01234sdasdf56789\",\n    \"address\": {\n        \"line1\": \"Lline 1 of address\",\n        \"town\": \"London\",\n        \"county\": \"greater London\",\n        \"postcode\": \"WC1A\"\n    }\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch User Details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLjIyMkBtZS5jb20iLCJpYXQiOjE3NTI1MjgzNTUsImV4cCI6MTc1MjYxNDc1NX0.mnsiBNNy8zQ9gPqmvwBp8b8DFSZtCZvovWYJrP8chwk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"john.sdssos@me.com\",\n    \"name\": \"John\",\n    \"password\": \"password\",\n    \"phoneNumber\": \"01234sdasdf56789\",\n    \"address\": {\n        \"line1\": \"line1 of address\",\n        \"town\": \"London\",\n        \"county\": \"greater London\",\n        \"postcode\": \"WC1A\"\n    }\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/users/john.222@me.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"users",
+						"john.222@me.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLjIyMkBtZS5jb20iLCJpYXQiOjE3NTI1MjgzNTUsImV4cCI6MTc1MjYxNDc1NX0.mnsiBNNy8zQ9gPqmvwBp8b8DFSZtCZvovWYJrP8chwk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"PERSONAL\",\n    \"name\": \"peronsal-account\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All User Accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLjIyMkBtZS5jb20iLCJpYXQiOjE3NTI1MjgxNzcsImV4cCI6MTc1MjYxNDU3N30.Uc66EIiNL4L6wOO_7PxRpHPvDuUxT5lE2c13-0j2z9E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"PERSONAL\",\n    \"name\": \"personal-account\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Account by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLjIyMkBtZS5jb20iLCJpYXQiOjE3NTI1MjgzNTUsImV4cCI6MTc1MjYxNDc1NX0.mnsiBNNy8zQ9gPqmvwBp8b8DFSZtCZvovWYJrP8chwk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"PERSONAL\",\n    \"name\": \"personal-account\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/accounts/1343433",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"accounts",
+						"1343433"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"john.222@me.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch individual transaction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZW1haWxAbWUuY29tIiwiaWF0IjoxNzUyNjgyMjc3LCJleHAiOjE3NTI3Njg2Nzd9.-F8lwvqYcDYDcLL8KZSy0shI5x_D0u61xskkcsJ8I68",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": \"10.00\",\n    \"type\": \"DEPOSIT\",\n    \"currency\": \"GBP\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8007/v1/accounts/01609018/transactions/tan-9ee64061",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8007",
+					"path": [
+						"v1",
+						"accounts",
+						"01609018",
+						"transactions",
+						"tan-9ee64061"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

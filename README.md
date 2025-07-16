@@ -14,7 +14,7 @@
  - Docker for local database
  - JWT token for authentication
 
-**Postman collection of requests is available in /resources/postman**
+**Postman collection of requests is available in /resources/postman/**
 
 Future plans
  - Increase test coverage using both Unit and Integration test
