@@ -2,6 +2,7 @@ package com.assignment.eagleBank.services;
 
 import com.assignment.eagleBank.dtos.NewAccountDto;
 import com.assignment.eagleBank.entity.Account;
+import com.assignment.eagleBank.entity.CurrencyEnum;
 import com.assignment.eagleBank.entity.User;
 import com.assignment.eagleBank.repositories.AccountRepository;
 import com.assignment.eagleBank.services.utils.IdGenerator;
@@ -25,7 +26,7 @@ public class AccountService {
                 .setAccountType(newAccountDto.getType())
                 .setBalance(0.00)
                 .setSortCode("10-10-10")
-                .setCurrency("GBP")
+                .setCurrency(CurrencyEnum.GBP)
                 .setAccountNumber(IdGenerator.generateAccountNumber())
                 .setUser(user);
 

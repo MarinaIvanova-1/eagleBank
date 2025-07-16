@@ -1,8 +1,9 @@
 package com.assignment.eagleBank.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -40,8 +41,8 @@ public class Account {
 
     private Double balance;
 
-    //    @Enumerated(EnumType.STRING)
-    private String currency;
+    @Enumerated(EnumType.STRING)
+    private CurrencyEnum currency;
 
     //TODO does it need to be an enum?
     private String sortCode;
@@ -69,7 +70,7 @@ public class Account {
         return this;
     }
 
-    public Account setCurrency(String currency) {
+    public Account setCurrency(CurrencyEnum currency) {
         this.currency = currency;
         return this;
     }

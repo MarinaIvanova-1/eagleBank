@@ -52,7 +52,7 @@ public class TestUtils {
         account.setAccountNumber("01234234");
         account.setAccountType("PERSONAL");
         account.setBalance(0.00);
-        account.setCurrency("GBP");
+        account.setCurrency(CurrencyEnum.GBP);
         account.setName("test account name");
         account.setCreatedAt(new Date());
         account.setUpdatedAt(new Date());

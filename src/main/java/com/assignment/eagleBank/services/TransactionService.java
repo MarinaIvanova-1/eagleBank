@@ -43,7 +43,7 @@ public class TransactionService {
         if (account != null) {
             transaction.setAmount(newTransactionDto.getAmount())
                     .setTransactionType(newTransactionDto.getType())
-                    .setCurrency(newTransactionDto.getCurrency  ())
+                    .setCurrency(newTransactionDto.getCurrency())
                     //TODO does this need to be unique?
                     .setTransactionId(IdGenerator.generateTransactionId())
                     .setAccount(account);
