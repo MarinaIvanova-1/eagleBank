@@ -35,9 +35,9 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionTypeEnum type;
 
-    //TODO make it enum
-    //    @Enumerated(EnumType.STRING)
-    private String currency;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private CurrencyEnum currency;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
@@ -63,7 +63,7 @@ public class Transaction {
         return this;
     }
 
-    public Transaction setCurrency(String currency) {
+    public Transaction setCurrency(CurrencyEnum currency) {
         this.currency = currency;
         return this;
     }

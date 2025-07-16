@@ -32,4 +32,4 @@ public class InputValidation {
         Double transactionAmount = Double.parseDouble(input);
         return transactionAmount > 0 && transactionAmount <= 10000;
     }
-}
+
